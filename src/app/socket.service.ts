@@ -16,17 +16,17 @@ export class SocketService {
     this.socket = io('http://localhost:4000');
    }
 
-  // listen(eventName: string) {
-  //   return new Observable((subscriber) => {
-  //     this.socket.on(eventName, (data) => {
-  //       subscriber.next(data)
-  //     })
-  //   })
-  // }
+  listen(eventName: string) {
+    return new Observable((subscriber) => {
+      this.socket.on(eventName, (data) => {
+        subscriber.next(data)
+      })
+    })
+  }
 
-  // emit(eventName: string, data: any) {
-  //   this.socket.emit(eventName, data);
-  // }
+  emit(eventName: string, data: any) {
+    this.socket.emit(eventName, data);
+  }
 
   public getStockList = () => {
     this.socket.on('list', (data) => {

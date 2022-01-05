@@ -13,8 +13,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // this.socketService.getStockList().subscribe((data: any) => console.log(data));
-    this.socketService.getStockList().subscribe((data) => {
+    this.socketService.listen('list').subscribe((data) => {
       console.log(data);
+    })
+  }
+
+  handleChange($event: Event) {
+    console.log(($event.target as HTMLInputElement).value);
+    this.socketService.emit('historical', ($event.target as HTMLInputElement).value);
+    this.socketService.listen('historical').subscribe((data) => {
+      console.log(data)
     })
   }
 }
