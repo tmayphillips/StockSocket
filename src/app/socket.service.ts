@@ -28,11 +28,11 @@ export class SocketService {
     this.socket.emit(eventName, data);
   }
 
-  public getStockList = () => {
-    this.socket.on('list', (data) => {
-      console.log('subscribe');
-      this.stockList$.next(data)
-    })
-    return this.stockList$.asObservable();
-  }
+  // public getStockList = () => {
+  //   this.socket.on('list', (data) => {
+  //     console.log('subscribe');
+  //     this.stockList$.next(data)
+  //   })
+  //   return this.stockList$.asObservable();
+  // }
 }

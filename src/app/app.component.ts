@@ -8,13 +8,14 @@ import { SocketService } from './socket.service';
 })
 export class AppComponent implements OnInit {
   title = 'StockSocket';
+  stockList: string[] = [];
 
   constructor(private socketService: SocketService) {  }
 
   ngOnInit() {
     // this.socketService.getStockList().subscribe((data: any) => console.log(data));
-    this.socketService.listen('list').subscribe((data) => {
-      console.log(data);
+    this.socketService.listen('list').subscribe((data: any) => {
+      this.stockList = data.symbols;
     })
   }
 
@@ -23,6 +24,13 @@ export class AppComponent implements OnInit {
     this.socketService.emit('historical', ($event.target as HTMLInputElement).value);
     this.socketService.listen('historical').subscribe((data) => {
       console.log(data)
+    })
+  }
+
+  getCurrent($event: Event) {
+    this.socketService.emit('live', ($event.target as HTMLElement).innerText);
+    this.socketService.listen('live').subscribe((data) => {
+      console.log(data);
     })
   }
 }
